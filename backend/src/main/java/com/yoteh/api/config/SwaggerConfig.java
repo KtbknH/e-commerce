@@ -1,4 +1,4 @@
-package config;
+package com.yoteh.api.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -22,8 +22,8 @@ public class SwaggerConfig {
                     + "Paiements : Orange Money, MTN Money.")
                 .version("0.1.0")
                 .contact(new Contact()
-                    .name("Name")
-                    .email("contact@test.com")))
+                    .name("Yoteh Team")
+                    .email("contact@yoteh.com")))
             .addSecurityItem(new SecurityRequirement().addList("Bearer JWT"))
             .components(new Components()
                 .addSecuritySchemes("Bearer JWT",

@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:yoteh_test_db}
+    username: ${DB_USER:yoteh_user}
+    password: ${DB_PASSWORD:yoteh_password}
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  flyway:
+    enabled: false
+
+logging:
+  level:
+    root: WARN
+    com.yoteh: INFO
