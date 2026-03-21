@@ -28,20 +28,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // Désactiver CSRF (API REST stateless)
-            .csrf(csrf -> csrf.disable())
+                // Désactiver CSRF (API REST stateless)
+                .csrf(csrf -> csrf.disable())
 
-            // Pas de sessions (JWT sera ajouté au Chat 3)
-            .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // Pas de sessions (JWT sera ajouté au Chat 3)
+                .sessionManagement(
+                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-            // Règles d'autorisation
-            .authorizeHttpRequests(auth -> auth
-                // Endpoints publics
-                .requestMatchers(PUBLIC_URLS).permitAll()
-                // Tout le reste nécessite une authentification (Chat 3)
-                .anyRequest().permitAll() // TODO: changer en .authenticated() au Chat 3
-            );
+                // Règles d'autorisation
+                .authorizeHttpRequests(
+                        auth ->
+                                auth
+                                        // Endpoints publics
+                                        .requestMatchers(PUBLIC_URLS)
+                                        .permitAll()
+                                        // Tout le reste nécessite une authentification (Chat 3)
+                                        .anyRequest()
+                                        .permitAll() // TODO: changer en .authenticated() au Chat 3
+                        );
 
         return http.build();
     }

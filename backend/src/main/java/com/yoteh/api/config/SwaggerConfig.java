@@ -15,23 +15,28 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI yotehOpenAPI() {
         return new OpenAPI()
-            .info(new Info()
-                .title("Yoteh E-Commerce API")
-                .description("API REST pour la plateforme e-commerce Yoteh. "
-                    + "Catégories : FEMME, HOMME, Tech/Gadgets. "
-                    + "Paiements : Orange Money, MTN Money.")
-                .version("0.1.0")
-                .contact(new Contact()
-                    .name("Yoteh Team")
-                    .email("contact@yoteh.com")))
-            .addSecurityItem(new SecurityRequirement().addList("Bearer JWT"))
-            .components(new Components()
-                .addSecuritySchemes("Bearer JWT",
-                    new SecurityScheme()
-                        .name("Authorization")
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT")
-                        .description("Entrez votre token JWT")));
+                .info(
+                        new Info()
+                                .title("Yoteh E-Commerce API")
+                                .description(
+                                        "API REST pour la plateforme e-commerce Yoteh. "
+                                                + "Catégories : FEMME, HOMME, Tech/Gadgets. "
+                                                + "Paiements : Orange Money, MTN Money.")
+                                .version("0.1.0")
+                                .contact(
+                                        new Contact()
+                                                .name("Yoteh Team")
+                                                .email("contact@yoteh.com")))
+                .addSecurityItem(new SecurityRequirement().addList("Bearer JWT"))
+                .components(
+                        new Components()
+                                .addSecuritySchemes(
+                                        "Bearer JWT",
+                                        new SecurityScheme()
+                                                .name("Authorization")
+                                                .type(SecurityScheme.Type.HTTP)
+                                                .scheme("bearer")
+                                                .bearerFormat("JWT")
+                                                .description("Entrez votre token JWT")));
     }
 }

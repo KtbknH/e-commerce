@@ -1,9 +1,9 @@
 package com.yoteh.api.exception;
 
 import com.yoteh.api.dto.response.common.ErrorResponse;
-
 import jakarta.servlet.http.HttpServletRequest;
-
+import java.util.HashMap;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,9 +12,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -59,33 +56,34 @@ public class GlobalExceptionHandler {
             errors.put(error.getField(), error.getDefaultMessage());
         }
 
-        ErrorResponse response = ErrorResponse.builder()
-                .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
-                .message("Erreur de validation")
-                .path(request.getRequestURI())
-                .errors(errors)
-                .build();
+        ErrorResponse response =
+                ErrorResponse.builder()
+                        .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
+                        .message("Erreur de validation")
+                        .path(request.getRequestURI())
+                        .errors(errors)
+                        .build();
 
         return new ResponseEntity<>(response, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     // ─── 500 Catch-all ────────────────────────────────────────────
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleAll(
-            Exception ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleAll(Exception ex, HttpServletRequest request) {
         log.error("Erreur inattendue: {}", ex.getMessage(), ex);
-        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR,
-                "Erreur interne du serveur", request);
+        return buildResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR, "Erreur interne du serveur", request);
     }
 
     // ─── Builder ──────────────────────────────────────────────────
     private ResponseEntity<ErrorResponse> buildResponse(
             HttpStatus status, String message, HttpServletRequest request) {
-        ErrorResponse response = ErrorResponse.builder()
-                .status(status.value())
-                .message(message)
-                .path(request.getRequestURI())
-                .build();
+        ErrorResponse response =
+                ErrorResponse.builder()
+                        .status(status.value())
+                        .message(message)
+                        .path(request.getRequestURI())
+                        .build();
         return new ResponseEntity<>(response, status);
     }
 }

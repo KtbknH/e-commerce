@@ -1,11 +1,10 @@
 package com.yoteh.api.dto.response.common;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @Builder
@@ -20,8 +19,8 @@ public class PagedResponse<T> {
     private int totalPages;
     private boolean last;
 
-    public static <T> PagedResponse<T> of(List<T> content, int page, int size,
-                                            long totalElements, int totalPages, boolean last) {
+    public static <T> PagedResponse<T> of(
+            List<T> content, int page, int size, long totalElements, int totalPages, boolean last) {
         return PagedResponse.<T>builder()
                 .content(content)
                 .page(page)
