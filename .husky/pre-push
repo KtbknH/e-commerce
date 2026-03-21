@@ -1,0 +1,23 @@
+echo "🚀 Pre-push: Tests..."
+echo ""
+
+# Backend
+if [ -d "backend" ]; then
+    echo "☕ Backend tests..."
+    cd backend
+    mvn test -Dtest="!*IntegrationTest,!*IT" -q 2>&1 || { echo "❌ Backend tests échoués !"; exit 1; }
+    echo "✅ Backend OK"
+    cd ..
+fi
+
+# Frontend
+if [ -d "frontend" ] && [ -f "frontend/package.json" ]; then
+    echo "⚛️  Frontend tests..."
+    cd frontend
+    npm test -- --passWithNoTests --watchAll=false 2>&1 || { echo "❌ Frontend tests échoués !"; exit 1; }
+    echo "✅ Frontend OK"
+    cd ..
+fi
+
+echo ""
+echo "✅ Tous les tests passent. Push autorisé !"

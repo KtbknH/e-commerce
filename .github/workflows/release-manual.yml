@@ -1,0 +1,77 @@
+name: Release Manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Type de release'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  release:
+    name: Release ${{ github.event.inputs.release_type }}
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Configure Git
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+          cache-dependency-path: backend/pom.xml
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Test backend
+        run: mvn -f backend/pom.xml verify -B
+      - name: Test frontend
+        run: cd frontend && npm ci && npm test -- --passWithNoTests
+      - name: Calculate version
+        id: ver
+        run: |
+          CURRENT=$(mvn -f backend/pom.xml help:evaluate -Dexpression=project.version -q -DforceStdout)
+          CURRENT="${CURRENT%-SNAPSHOT}"
+          IFS='.' read -ra P <<< "$CURRENT"
+          case "${{ github.event.inputs.release_type }}" in
+            major) P[0]=$((P[0]+1)); P[1]=0; P[2]=0 ;;
+            minor) P[1]=$((P[1]+1)); P[2]=0 ;;
+            patch) P[2]=$((P[2]+1)) ;;
+          esac
+          echo "version=${P[0]}.${P[1]}.${P[2]}" >> $GITHUB_OUTPUT
+      - name: Bump + build + release
+        run: |
+          cd backend
+          mvn versions:set -DnewVersion=${{ steps.ver.outputs.version }} -B
+          mvn versions:commit -B
+          mvn package -B -DskipTests
+          cd ..
+          git add backend/pom.xml
+          git commit -m "chore: release v${{ steps.ver.outputs.version }}"
+          git tag "v${{ steps.ver.outputs.version }}"
+          git push origin main --tags
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: e-Commerce v${{ steps.ver.outputs.version }}
+          files: backend/target/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,23 @@
+MSG=$(head -n 1 "$1")
+if echo "$MSG" | grep -qE "^(Merge|Revert|fixup!)"; then exit 0; fi
+PATTERN="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\((auth|users|products|categories|cart|orders|payments|shipping|promotions|wishlist|reviews|loyalty|notifications|admin|config|security|db|api|deps|ui|screens|components|navigation|store|hooks)\))?!?: .{10,100}$"
+if ! echo "$MSG" | grep -qE "$PATTERN"; then
+    echo ""
+    echo "❌ Format invalide: \"$MSG\""
+    echo ""
+    echo "   Format: <type>(<scope>): <description>"
+    echo ""
+    echo "   Backend scopes : auth users products categories cart orders"
+    echo "                    payments shipping promotions wishlist reviews"
+    echo "                    loyalty notifications admin config security db api"
+    echo ""
+    echo "   Frontend scopes: ui screens components navigation store hooks"
+    echo ""
+    echo "   Exemples:"
+    echo "     feat(auth): add JWT authentication system"
+    echo "     fix(screens): resolve product list crash"
+    echo "     chore(deps): update spring boot to 3.2.5"
+    echo ""
+    exit 1
+fi
+echo "✅ $MSG"
