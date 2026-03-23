@@ -1,14 +1,15 @@
 package com.yoteh.api.entity;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "shipping_zones", indexes = {
-        @Index(name = "idx_shipping_zones_name", columnList = "name"),
-        @Index(name = "idx_shipping_zones_is_active", columnList = "is_active")
-})
+@Table(
+        name = "shipping_zones",
+        indexes = {
+            @Index(name = "idx_shipping_zones_name", columnList = "name"),
+            @Index(name = "idx_shipping_zones_is_active", columnList = "is_active")
+        })
 public class ShippingZone extends AbstractAuditEntity {
 
     @Column(name = "name", nullable = false, length = 100)
@@ -50,38 +51,93 @@ public class ShippingZone extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getCities() { return cities; }
-    public void setCities(String cities) { this.cities = cities; }
+    public String getDescription() {
+        return description;
+    }
 
-    public String getCountry() { return country; }
-    public void setCountry(String country) { this.country = country; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public BigDecimal getBaseFee() { return baseFee; }
-    public void setBaseFee(BigDecimal baseFee) { this.baseFee = baseFee; }
+    public String getCities() {
+        return cities;
+    }
 
-    public BigDecimal getPerKgFee() { return perKgFee; }
-    public void setPerKgFee(BigDecimal perKgFee) { this.perKgFee = perKgFee; }
+    public void setCities(String cities) {
+        this.cities = cities;
+    }
 
-    public BigDecimal getFreeShippingThreshold() { return freeShippingThreshold; }
-    public void setFreeShippingThreshold(BigDecimal freeShippingThreshold) { this.freeShippingThreshold = freeShippingThreshold; }
+    public String getCountry() {
+        return country;
+    }
 
-    public Integer getEstimatedDaysMin() { return estimatedDaysMin; }
-    public void setEstimatedDaysMin(Integer estimatedDaysMin) { this.estimatedDaysMin = estimatedDaysMin; }
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-    public Integer getEstimatedDaysMax() { return estimatedDaysMax; }
-    public void setEstimatedDaysMax(Integer estimatedDaysMax) { this.estimatedDaysMax = estimatedDaysMax; }
+    public BigDecimal getBaseFee() {
+        return baseFee;
+    }
 
-    public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public void setBaseFee(BigDecimal baseFee) {
+        this.baseFee = baseFee;
+    }
 
-    public Integer getSortOrder() { return sortOrder; }
-    public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
+    public BigDecimal getPerKgFee() {
+        return perKgFee;
+    }
+
+    public void setPerKgFee(BigDecimal perKgFee) {
+        this.perKgFee = perKgFee;
+    }
+
+    public BigDecimal getFreeShippingThreshold() {
+        return freeShippingThreshold;
+    }
+
+    public void setFreeShippingThreshold(BigDecimal freeShippingThreshold) {
+        this.freeShippingThreshold = freeShippingThreshold;
+    }
+
+    public Integer getEstimatedDaysMin() {
+        return estimatedDaysMin;
+    }
+
+    public void setEstimatedDaysMin(Integer estimatedDaysMin) {
+        this.estimatedDaysMin = estimatedDaysMin;
+    }
+
+    public Integer getEstimatedDaysMax() {
+        return estimatedDaysMax;
+    }
+
+    public void setEstimatedDaysMax(Integer estimatedDaysMax) {
+        this.estimatedDaysMax = estimatedDaysMax;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
 
     // ── Méthodes utilitaires ──
 

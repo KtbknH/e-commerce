@@ -1,14 +1,15 @@
 package com.yoteh.api.entity;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "product_variants", indexes = {
-        @Index(name = "idx_product_variants_product_id", columnList = "product_id"),
-        @Index(name = "idx_product_variants_sku", columnList = "sku", unique = true)
-})
+@Table(
+        name = "product_variants",
+        indexes = {
+            @Index(name = "idx_product_variants_product_id", columnList = "product_id"),
+            @Index(name = "idx_product_variants_sku", columnList = "sku", unique = true)
+        })
 public class ProductVariant extends AbstractAuditEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -63,50 +64,125 @@ public class ProductVariant extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public Product getProduct() { return product; }
-    public void setProduct(Product product) { this.product = product; }
+    public Product getProduct() {
+        return product;
+    }
 
-    public String getSku() { return sku; }
-    public void setSku(String sku) { this.sku = sku; }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-    public String getSize() { return size; }
-    public void setSize(String size) { this.size = size; }
+    public String getSku() {
+        return sku;
+    }
 
-    public String getColor() { return color; }
-    public void setColor(String color) { this.color = color; }
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
 
-    public String getColorHex() { return colorHex; }
-    public void setColorHex(String colorHex) { this.colorHex = colorHex; }
+    public String getSize() {
+        return size;
+    }
 
-    public String getMaterial() { return material; }
-    public void setMaterial(String material) { this.material = material; }
+    public void setSize(String size) {
+        this.size = size;
+    }
 
-    public String getStyle() { return style; }
-    public void setStyle(String style) { this.style = style; }
+    public String getColor() {
+        return color;
+    }
 
-    public BigDecimal getPrice() { return price; }
-    public void setPrice(BigDecimal price) { this.price = price; }
+    public void setColor(String color) {
+        this.color = color;
+    }
 
-    public BigDecimal getCompareAtPrice() { return compareAtPrice; }
-    public void setCompareAtPrice(BigDecimal compareAtPrice) { this.compareAtPrice = compareAtPrice; }
+    public String getColorHex() {
+        return colorHex;
+    }
 
-    public Integer getStock() { return stock; }
-    public void setStock(Integer stock) { this.stock = stock; }
+    public void setColorHex(String colorHex) {
+        this.colorHex = colorHex;
+    }
 
-    public Integer getLowStockThreshold() { return lowStockThreshold; }
-    public void setLowStockThreshold(Integer lowStockThreshold) { this.lowStockThreshold = lowStockThreshold; }
+    public String getMaterial() {
+        return material;
+    }
 
-    public BigDecimal getWeight() { return weight; }
-    public void setWeight(BigDecimal weight) { this.weight = weight; }
+    public void setMaterial(String material) {
+        this.material = material;
+    }
 
-    public String getImage() { return image; }
-    public void setImage(String image) { this.image = image; }
+    public String getStyle() {
+        return style;
+    }
 
-    public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public void setStyle(String style) {
+        this.style = style;
+    }
 
-    public Integer getSortOrder() { return sortOrder; }
-    public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getCompareAtPrice() {
+        return compareAtPrice;
+    }
+
+    public void setCompareAtPrice(BigDecimal compareAtPrice) {
+        this.compareAtPrice = compareAtPrice;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Integer getLowStockThreshold() {
+        return lowStockThreshold;
+    }
+
+    public void setLowStockThreshold(Integer lowStockThreshold) {
+        this.lowStockThreshold = lowStockThreshold;
+    }
+
+    public BigDecimal getWeight() {
+        return weight;
+    }
+
+    public void setWeight(BigDecimal weight) {
+        this.weight = weight;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
 
     // ── Méthodes utilitaires ──
 

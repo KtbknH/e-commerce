@@ -2,19 +2,20 @@ package com.yoteh.api.entity;
 
 import com.yoteh.api.entity.enums.OrderStatus;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "orders", indexes = {
-        @Index(name = "idx_orders_user_id", columnList = "user_id"),
-        @Index(name = "idx_orders_order_number", columnList = "order_number", unique = true),
-        @Index(name = "idx_orders_status", columnList = "status"),
-        @Index(name = "idx_orders_created_at", columnList = "created_at")
-})
+@Table(
+        name = "orders",
+        indexes = {
+            @Index(name = "idx_orders_user_id", columnList = "user_id"),
+            @Index(name = "idx_orders_order_number", columnList = "order_number", unique = true),
+            @Index(name = "idx_orders_status", columnList = "status"),
+            @Index(name = "idx_orders_created_at", columnList = "created_at")
+        })
 public class Order extends AbstractAuditEntity {
 
     @Column(name = "order_number", nullable = false, unique = true, length = 50)
@@ -130,93 +131,243 @@ public class Order extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public String getOrderNumber() { return orderNumber; }
-    public void setOrderNumber(String orderNumber) { this.orderNumber = orderNumber; }
+    public String getOrderNumber() {
+        return orderNumber;
+    }
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
 
-    public OrderStatus getStatus() { return status; }
-    public void setStatus(OrderStatus status) { this.status = status; }
+    public User getUser() {
+        return user;
+    }
 
-    public BigDecimal getSubtotal() { return subtotal; }
-    public void setSubtotal(BigDecimal subtotal) { this.subtotal = subtotal; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public BigDecimal getDiscountAmount() { return discountAmount; }
-    public void setDiscountAmount(BigDecimal discountAmount) { this.discountAmount = discountAmount; }
+    public OrderStatus getStatus() {
+        return status;
+    }
 
-    public BigDecimal getShippingAmount() { return shippingAmount; }
-    public void setShippingAmount(BigDecimal shippingAmount) { this.shippingAmount = shippingAmount; }
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
 
-    public BigDecimal getTaxAmount() { return taxAmount; }
-    public void setTaxAmount(BigDecimal taxAmount) { this.taxAmount = taxAmount; }
+    public BigDecimal getSubtotal() {
+        return subtotal;
+    }
 
-    public BigDecimal getTotal() { return total; }
-    public void setTotal(BigDecimal total) { this.total = total; }
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
+    }
 
-    public String getCurrency() { return currency; }
-    public void setCurrency(String currency) { this.currency = currency; }
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
 
-    public String getPromotionCode() { return promotionCode; }
-    public void setPromotionCode(String promotionCode) { this.promotionCode = promotionCode; }
+    public void setDiscountAmount(BigDecimal discountAmount) {
+        this.discountAmount = discountAmount;
+    }
 
-    public Promotion getPromotion() { return promotion; }
-    public void setPromotion(Promotion promotion) { this.promotion = promotion; }
+    public BigDecimal getShippingAmount() {
+        return shippingAmount;
+    }
 
-    public String getShippingFirstName() { return shippingFirstName; }
-    public void setShippingFirstName(String shippingFirstName) { this.shippingFirstName = shippingFirstName; }
+    public void setShippingAmount(BigDecimal shippingAmount) {
+        this.shippingAmount = shippingAmount;
+    }
 
-    public String getShippingLastName() { return shippingLastName; }
-    public void setShippingLastName(String shippingLastName) { this.shippingLastName = shippingLastName; }
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
+    }
 
-    public String getShippingPhone() { return shippingPhone; }
-    public void setShippingPhone(String shippingPhone) { this.shippingPhone = shippingPhone; }
+    public void setTaxAmount(BigDecimal taxAmount) {
+        this.taxAmount = taxAmount;
+    }
 
-    public String getShippingStreet() { return shippingStreet; }
-    public void setShippingStreet(String shippingStreet) { this.shippingStreet = shippingStreet; }
+    public BigDecimal getTotal() {
+        return total;
+    }
 
-    public String getShippingCity() { return shippingCity; }
-    public void setShippingCity(String shippingCity) { this.shippingCity = shippingCity; }
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
 
-    public String getShippingState() { return shippingState; }
-    public void setShippingState(String shippingState) { this.shippingState = shippingState; }
+    public String getCurrency() {
+        return currency;
+    }
 
-    public String getShippingPostalCode() { return shippingPostalCode; }
-    public void setShippingPostalCode(String shippingPostalCode) { this.shippingPostalCode = shippingPostalCode; }
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
-    public String getShippingCountry() { return shippingCountry; }
-    public void setShippingCountry(String shippingCountry) { this.shippingCountry = shippingCountry; }
+    public String getPromotionCode() {
+        return promotionCode;
+    }
 
-    public String getCustomerNote() { return customerNote; }
-    public void setCustomerNote(String customerNote) { this.customerNote = customerNote; }
+    public void setPromotionCode(String promotionCode) {
+        this.promotionCode = promotionCode;
+    }
 
-    public String getAdminNote() { return adminNote; }
-    public void setAdminNote(String adminNote) { this.adminNote = adminNote; }
+    public Promotion getPromotion() {
+        return promotion;
+    }
 
-    public String getTrackingNumber() { return trackingNumber; }
-    public void setTrackingNumber(String trackingNumber) { this.trackingNumber = trackingNumber; }
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
 
-    public LocalDateTime getShippedAt() { return shippedAt; }
-    public void setShippedAt(LocalDateTime shippedAt) { this.shippedAt = shippedAt; }
+    public String getShippingFirstName() {
+        return shippingFirstName;
+    }
 
-    public LocalDateTime getDeliveredAt() { return deliveredAt; }
-    public void setDeliveredAt(LocalDateTime deliveredAt) { this.deliveredAt = deliveredAt; }
+    public void setShippingFirstName(String shippingFirstName) {
+        this.shippingFirstName = shippingFirstName;
+    }
 
-    public LocalDateTime getCancelledAt() { return cancelledAt; }
-    public void setCancelledAt(LocalDateTime cancelledAt) { this.cancelledAt = cancelledAt; }
+    public String getShippingLastName() {
+        return shippingLastName;
+    }
 
-    public String getCancelReason() { return cancelReason; }
-    public void setCancelReason(String cancelReason) { this.cancelReason = cancelReason; }
+    public void setShippingLastName(String shippingLastName) {
+        this.shippingLastName = shippingLastName;
+    }
 
-    public String getIpAddress() { return ipAddress; }
-    public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
+    public String getShippingPhone() {
+        return shippingPhone;
+    }
 
-    public String getUserAgent() { return userAgent; }
-    public void setUserAgent(String userAgent) { this.userAgent = userAgent; }
+    public void setShippingPhone(String shippingPhone) {
+        this.shippingPhone = shippingPhone;
+    }
 
-    public List<OrderItem> getItems() { return items; }
-    public void setItems(List<OrderItem> items) { this.items = items; }
+    public String getShippingStreet() {
+        return shippingStreet;
+    }
 
-    public List<Payment> getPayments() { return payments; }
-    public void setPayments(List<Payment> payments) { this.payments = payments; }
+    public void setShippingStreet(String shippingStreet) {
+        this.shippingStreet = shippingStreet;
+    }
+
+    public String getShippingCity() {
+        return shippingCity;
+    }
+
+    public void setShippingCity(String shippingCity) {
+        this.shippingCity = shippingCity;
+    }
+
+    public String getShippingState() {
+        return shippingState;
+    }
+
+    public void setShippingState(String shippingState) {
+        this.shippingState = shippingState;
+    }
+
+    public String getShippingPostalCode() {
+        return shippingPostalCode;
+    }
+
+    public void setShippingPostalCode(String shippingPostalCode) {
+        this.shippingPostalCode = shippingPostalCode;
+    }
+
+    public String getShippingCountry() {
+        return shippingCountry;
+    }
+
+    public void setShippingCountry(String shippingCountry) {
+        this.shippingCountry = shippingCountry;
+    }
+
+    public String getCustomerNote() {
+        return customerNote;
+    }
+
+    public void setCustomerNote(String customerNote) {
+        this.customerNote = customerNote;
+    }
+
+    public String getAdminNote() {
+        return adminNote;
+    }
+
+    public void setAdminNote(String adminNote) {
+        this.adminNote = adminNote;
+    }
+
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
+
+    public LocalDateTime getShippedAt() {
+        return shippedAt;
+    }
+
+    public void setShippedAt(LocalDateTime shippedAt) {
+        this.shippedAt = shippedAt;
+    }
+
+    public LocalDateTime getDeliveredAt() {
+        return deliveredAt;
+    }
+
+    public void setDeliveredAt(LocalDateTime deliveredAt) {
+        this.deliveredAt = deliveredAt;
+    }
+
+    public LocalDateTime getCancelledAt() {
+        return cancelledAt;
+    }
+
+    public void setCancelledAt(LocalDateTime cancelledAt) {
+        this.cancelledAt = cancelledAt;
+    }
+
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public String getUserAgent() {
+        return userAgent;
+    }
+
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
+    }
+
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
 }

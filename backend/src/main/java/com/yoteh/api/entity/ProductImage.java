@@ -3,9 +3,9 @@ package com.yoteh.api.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "product_images", indexes = {
-        @Index(name = "idx_product_images_product_id", columnList = "product_id")
-})
+@Table(
+        name = "product_images",
+        indexes = {@Index(name = "idx_product_images_product_id", columnList = "product_id")})
 public class ProductImage extends AbstractAuditEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,24 +42,59 @@ public class ProductImage extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public Product getProduct() { return product; }
-    public void setProduct(Product product) { this.product = product; }
+    public Product getProduct() {
+        return product;
+    }
 
-    public String getUrl() { return url; }
-    public void setUrl(String url) { this.url = url; }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-    public String getAltText() { return altText; }
-    public void setAltText(String altText) { this.altText = altText; }
+    public String getUrl() {
+        return url;
+    }
 
-    public Boolean getIsPrimary() { return isPrimary; }
-    public void setIsPrimary(Boolean isPrimary) { this.isPrimary = isPrimary; }
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-    public Integer getSortOrder() { return sortOrder; }
-    public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
+    public String getAltText() {
+        return altText;
+    }
 
-    public Integer getWidth() { return width; }
-    public void setWidth(Integer width) { this.width = width; }
+    public void setAltText(String altText) {
+        this.altText = altText;
+    }
 
-    public Integer getHeight() { return height; }
-    public void setHeight(Integer height) { this.height = height; }
+    public Boolean getIsPrimary() {
+        return isPrimary;
+    }
+
+    public void setIsPrimary(Boolean isPrimary) {
+        this.isPrimary = isPrimary;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
 }

@@ -3,11 +3,13 @@ package com.yoteh.api.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "loyalty_transactions", indexes = {
-        @Index(name = "idx_loyalty_tx_user_id", columnList = "user_id"),
-        @Index(name = "idx_loyalty_tx_order_id", columnList = "order_id"),
-        @Index(name = "idx_loyalty_tx_type", columnList = "type")
-})
+@Table(
+        name = "loyalty_transactions",
+        indexes = {
+            @Index(name = "idx_loyalty_tx_user_id", columnList = "user_id"),
+            @Index(name = "idx_loyalty_tx_order_id", columnList = "order_id"),
+            @Index(name = "idx_loyalty_tx_type", columnList = "type")
+        })
 public class LoyaltyTransaction extends AbstractAuditEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,24 +41,59 @@ public class LoyaltyTransaction extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public User getUser() {
+        return user;
+    }
 
-    public Order getOrder() { return order; }
-    public void setOrder(Order order) { this.order = order; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public Order getOrder() {
+        return order;
+    }
 
-    public Integer getPoints() { return points; }
-    public void setPoints(Integer points) { this.points = points; }
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
-    public Integer getBalanceAfter() { return balanceAfter; }
-    public void setBalanceAfter(Integer balanceAfter) { this.balanceAfter = balanceAfter; }
+    public String getType() {
+        return type;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public void setType(String type) {
+        this.type = type;
+    }
 
-    public String getReference() { return reference; }
-    public void setReference(String reference) { this.reference = reference; }
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public Integer getBalanceAfter() {
+        return balanceAfter;
+    }
+
+    public void setBalanceAfter(Integer balanceAfter) {
+        this.balanceAfter = balanceAfter;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
 }

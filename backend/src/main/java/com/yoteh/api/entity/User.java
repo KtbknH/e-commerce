@@ -3,17 +3,18 @@ package com.yoteh.api.entity;
 import com.yoteh.api.entity.enums.LoyaltyLevel;
 import com.yoteh.api.entity.enums.UserRole;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "users", indexes = {
-        @Index(name = "idx_users_email", columnList = "email", unique = true),
-        @Index(name = "idx_users_phone", columnList = "phone"),
-        @Index(name = "idx_users_role", columnList = "role")
-})
+@Table(
+        name = "users",
+        indexes = {
+            @Index(name = "idx_users_email", columnList = "email", unique = true),
+            @Index(name = "idx_users_phone", columnList = "phone"),
+            @Index(name = "idx_users_role", columnList = "role")
+        })
 public class User extends AbstractAuditEntity {
 
     @Column(name = "email", nullable = false, unique = true, length = 255)
@@ -112,80 +113,205 @@ public class User extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public String getPassword() {
+        return password;
+    }
 
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public String getAvatar() { return avatar; }
-    public void setAvatar(String avatar) { this.avatar = avatar; }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public UserRole getRole() { return role; }
-    public void setRole(UserRole role) { this.role = role; }
+    public String getLastName() {
+        return lastName;
+    }
 
-    public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    public Boolean getIsVerified() { return isVerified; }
-    public void setIsVerified(Boolean isVerified) { this.isVerified = isVerified; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public String getVerificationToken() { return verificationToken; }
-    public void setVerificationToken(String verificationToken) { this.verificationToken = verificationToken; }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-    public LocalDateTime getVerificationExpires() { return verificationExpires; }
-    public void setVerificationExpires(LocalDateTime verificationExpires) { this.verificationExpires = verificationExpires; }
+    public String getAvatar() {
+        return avatar;
+    }
 
-    public String getResetPasswordToken() { return resetPasswordToken; }
-    public void setResetPasswordToken(String resetPasswordToken) { this.resetPasswordToken = resetPasswordToken; }
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
-    public LocalDateTime getResetPasswordExpires() { return resetPasswordExpires; }
-    public void setResetPasswordExpires(LocalDateTime resetPasswordExpires) { this.resetPasswordExpires = resetPasswordExpires; }
+    public UserRole getRole() {
+        return role;
+    }
 
-    public LocalDateTime getLastLogin() { return lastLogin; }
-    public void setLastLogin(LocalDateTime lastLogin) { this.lastLogin = lastLogin; }
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
 
-    public String getRefreshToken() { return refreshToken; }
-    public void setRefreshToken(String refreshToken) { this.refreshToken = refreshToken; }
+    public Boolean getIsActive() {
+        return isActive;
+    }
 
-    public Integer getLoyaltyPoints() { return loyaltyPoints; }
-    public void setLoyaltyPoints(Integer loyaltyPoints) { this.loyaltyPoints = loyaltyPoints; }
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
 
-    public LoyaltyLevel getLoyaltyLevel() { return loyaltyLevel; }
-    public void setLoyaltyLevel(LoyaltyLevel loyaltyLevel) { this.loyaltyLevel = loyaltyLevel; }
+    public Boolean getIsVerified() {
+        return isVerified;
+    }
 
-    public String getPreferredLanguage() { return preferredLanguage; }
-    public void setPreferredLanguage(String preferredLanguage) { this.preferredLanguage = preferredLanguage; }
+    public void setIsVerified(Boolean isVerified) {
+        this.isVerified = isVerified;
+    }
 
-    public String getPreferredCurrency() { return preferredCurrency; }
-    public void setPreferredCurrency(String preferredCurrency) { this.preferredCurrency = preferredCurrency; }
+    public String getVerificationToken() {
+        return verificationToken;
+    }
 
-    public List<Address> getAddresses() { return addresses; }
-    public void setAddresses(List<Address> addresses) { this.addresses = addresses; }
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
 
-    public Cart getCart() { return cart; }
-    public void setCart(Cart cart) { this.cart = cart; }
+    public LocalDateTime getVerificationExpires() {
+        return verificationExpires;
+    }
 
-    public List<Order> getOrders() { return orders; }
-    public void setOrders(List<Order> orders) { this.orders = orders; }
+    public void setVerificationExpires(LocalDateTime verificationExpires) {
+        this.verificationExpires = verificationExpires;
+    }
 
-    public List<Review> getReviews() { return reviews; }
-    public void setReviews(List<Review> reviews) { this.reviews = reviews; }
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
 
-    public List<WishlistItem> getWishlistItems() { return wishlistItems; }
-    public void setWishlistItems(List<WishlistItem> wishlistItems) { this.wishlistItems = wishlistItems; }
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
 
-    public List<LoyaltyTransaction> getLoyaltyTransactions() { return loyaltyTransactions; }
-    public void setLoyaltyTransactions(List<LoyaltyTransaction> loyaltyTransactions) { this.loyaltyTransactions = loyaltyTransactions; }
+    public LocalDateTime getResetPasswordExpires() {
+        return resetPasswordExpires;
+    }
+
+    public void setResetPasswordExpires(LocalDateTime resetPasswordExpires) {
+        this.resetPasswordExpires = resetPasswordExpires;
+    }
+
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public Integer getLoyaltyPoints() {
+        return loyaltyPoints;
+    }
+
+    public void setLoyaltyPoints(Integer loyaltyPoints) {
+        this.loyaltyPoints = loyaltyPoints;
+    }
+
+    public LoyaltyLevel getLoyaltyLevel() {
+        return loyaltyLevel;
+    }
+
+    public void setLoyaltyLevel(LoyaltyLevel loyaltyLevel) {
+        this.loyaltyLevel = loyaltyLevel;
+    }
+
+    public String getPreferredLanguage() {
+        return preferredLanguage;
+    }
+
+    public void setPreferredLanguage(String preferredLanguage) {
+        this.preferredLanguage = preferredLanguage;
+    }
+
+    public String getPreferredCurrency() {
+        return preferredCurrency;
+    }
+
+    public void setPreferredCurrency(String preferredCurrency) {
+        this.preferredCurrency = preferredCurrency;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<WishlistItem> getWishlistItems() {
+        return wishlistItems;
+    }
+
+    public void setWishlistItems(List<WishlistItem> wishlistItems) {
+        this.wishlistItems = wishlistItems;
+    }
+
+    public List<LoyaltyTransaction> getLoyaltyTransactions() {
+        return loyaltyTransactions;
+    }
+
+    public void setLoyaltyTransactions(List<LoyaltyTransaction> loyaltyTransactions) {
+        this.loyaltyTransactions = loyaltyTransactions;
+    }
 
     // ── Méthodes utilitaires ──
 

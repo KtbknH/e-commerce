@@ -3,15 +3,19 @@ package com.yoteh.api.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "reviews", indexes = {
-        @Index(name = "idx_reviews_product_id", columnList = "product_id"),
-        @Index(name = "idx_reviews_user_id", columnList = "user_id"),
-        @Index(name = "idx_reviews_is_approved", columnList = "is_approved"),
-        @Index(name = "idx_reviews_rating", columnList = "rating")
-}, uniqueConstraints = {
-        @UniqueConstraint(name = "uk_review_user_product",
-                columnNames = {"user_id", "product_id"})
-})
+@Table(
+        name = "reviews",
+        indexes = {
+            @Index(name = "idx_reviews_product_id", columnList = "product_id"),
+            @Index(name = "idx_reviews_user_id", columnList = "user_id"),
+            @Index(name = "idx_reviews_is_approved", columnList = "is_approved"),
+            @Index(name = "idx_reviews_rating", columnList = "rating")
+        },
+        uniqueConstraints = {
+            @UniqueConstraint(
+                    name = "uk_review_user_product",
+                    columnNames = {"user_id", "product_id"})
+        })
 public class Review extends AbstractAuditEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,30 +53,75 @@ public class Review extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public User getUser() {
+        return user;
+    }
 
-    public Product getProduct() { return product; }
-    public void setProduct(Product product) { this.product = product; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public Integer getRating() { return rating; }
-    public void setRating(Integer rating) { this.rating = rating; }
+    public Product getProduct() {
+        return product;
+    }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-    public String getComment() { return comment; }
-    public void setComment(String comment) { this.comment = comment; }
+    public Integer getRating() {
+        return rating;
+    }
 
-    public Boolean getIsApproved() { return isApproved; }
-    public void setIsApproved(Boolean isApproved) { this.isApproved = isApproved; }
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
 
-    public Boolean getIsVerifiedPurchase() { return isVerifiedPurchase; }
-    public void setIsVerifiedPurchase(Boolean isVerifiedPurchase) { this.isVerifiedPurchase = isVerifiedPurchase; }
+    public String getTitle() {
+        return title;
+    }
 
-    public String getAdminResponse() { return adminResponse; }
-    public void setAdminResponse(String adminResponse) { this.adminResponse = adminResponse; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public Integer getHelpfulCount() { return helpfulCount; }
-    public void setHelpfulCount(Integer helpfulCount) { this.helpfulCount = helpfulCount; }
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Boolean getIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(Boolean isApproved) {
+        this.isApproved = isApproved;
+    }
+
+    public Boolean getIsVerifiedPurchase() {
+        return isVerifiedPurchase;
+    }
+
+    public void setIsVerifiedPurchase(Boolean isVerifiedPurchase) {
+        this.isVerifiedPurchase = isVerifiedPurchase;
+    }
+
+    public String getAdminResponse() {
+        return adminResponse;
+    }
+
+    public void setAdminResponse(String adminResponse) {
+        this.adminResponse = adminResponse;
+    }
+
+    public Integer getHelpfulCount() {
+        return helpfulCount;
+    }
+
+    public void setHelpfulCount(Integer helpfulCount) {
+        this.helpfulCount = helpfulCount;
+    }
 }

@@ -31,6 +31,6 @@ public class HealthController {
                         defaultCurrency,
                         "timestamp",
                         LocalDateTime.now().toString());
-        return ResponseEntity.ok(ApiResponse.ok("Yoteh API is running", data));
+        return ResponseEntity.ok(ApiResponse.success(data, "Yoteh API is running"));
     }
 }

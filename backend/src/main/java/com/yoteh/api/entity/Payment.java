@@ -4,18 +4,22 @@ import com.yoteh.api.entity.enums.PaymentMethod;
 import com.yoteh.api.entity.enums.PaymentProvider;
 import com.yoteh.api.entity.enums.PaymentStatus;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "payments", indexes = {
-        @Index(name = "idx_payments_order_id", columnList = "order_id"),
-        @Index(name = "idx_payments_user_id", columnList = "user_id"),
-        @Index(name = "idx_payments_reference", columnList = "payment_reference", unique = true),
-        @Index(name = "idx_payments_external_id", columnList = "external_id"),
-        @Index(name = "idx_payments_status", columnList = "status")
-})
+@Table(
+        name = "payments",
+        indexes = {
+            @Index(name = "idx_payments_order_id", columnList = "order_id"),
+            @Index(name = "idx_payments_user_id", columnList = "user_id"),
+            @Index(
+                    name = "idx_payments_reference",
+                    columnList = "payment_reference",
+                    unique = true),
+            @Index(name = "idx_payments_external_id", columnList = "external_id"),
+            @Index(name = "idx_payments_status", columnList = "status")
+        })
 public class Payment extends AbstractAuditEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -98,66 +102,171 @@ public class Payment extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public Order getOrder() { return order; }
-    public void setOrder(Order order) { this.order = order; }
+    public Order getOrder() {
+        return order;
+    }
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
-    public String getPaymentReference() { return paymentReference; }
-    public void setPaymentReference(String paymentReference) { this.paymentReference = paymentReference; }
+    public User getUser() {
+        return user;
+    }
 
-    public PaymentMethod getMethod() { return method; }
-    public void setMethod(PaymentMethod method) { this.method = method; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public PaymentProvider getProvider() { return provider; }
-    public void setProvider(PaymentProvider provider) { this.provider = provider; }
+    public String getPaymentReference() {
+        return paymentReference;
+    }
 
-    public String getPhoneNumber() { return phoneNumber; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setPaymentReference(String paymentReference) {
+        this.paymentReference = paymentReference;
+    }
 
-    public PaymentStatus getStatus() { return status; }
-    public void setStatus(PaymentStatus status) { this.status = status; }
+    public PaymentMethod getMethod() {
+        return method;
+    }
 
-    public BigDecimal getAmount() { return amount; }
-    public void setAmount(BigDecimal amount) { this.amount = amount; }
+    public void setMethod(PaymentMethod method) {
+        this.method = method;
+    }
 
-    public String getCurrency() { return currency; }
-    public void setCurrency(String currency) { this.currency = currency; }
+    public PaymentProvider getProvider() {
+        return provider;
+    }
 
-    public String getExternalId() { return externalId; }
-    public void setExternalId(String externalId) { this.externalId = externalId; }
+    public void setProvider(PaymentProvider provider) {
+        this.provider = provider;
+    }
 
-    public String getExternalUrl() { return externalUrl; }
-    public void setExternalUrl(String externalUrl) { this.externalUrl = externalUrl; }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-    public String getProviderResponse() { return providerResponse; }
-    public void setProviderResponse(String providerResponse) { this.providerResponse = providerResponse; }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-    public String getErrorCode() { return errorCode; }
-    public void setErrorCode(String errorCode) { this.errorCode = errorCode; }
+    public PaymentStatus getStatus() {
+        return status;
+    }
 
-    public String getErrorMessage() { return errorMessage; }
-    public void setErrorMessage(String errorMessage) { this.errorMessage = errorMessage; }
+    public void setStatus(PaymentStatus status) {
+        this.status = status;
+    }
 
-    public String getRefundReason() { return refundReason; }
-    public void setRefundReason(String refundReason) { this.refundReason = refundReason; }
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
-    public LocalDateTime getRefundedAt() { return refundedAt; }
-    public void setRefundedAt(LocalDateTime refundedAt) { this.refundedAt = refundedAt; }
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
-    public BigDecimal getRefundedAmount() { return refundedAmount; }
-    public void setRefundedAmount(BigDecimal refundedAmount) { this.refundedAmount = refundedAmount; }
+    public String getCurrency() {
+        return currency;
+    }
 
-    public LocalDateTime getPaidAt() { return paidAt; }
-    public void setPaidAt(LocalDateTime paidAt) { this.paidAt = paidAt; }
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
-    public LocalDateTime getExpiresAt() { return expiresAt; }
-    public void setExpiresAt(LocalDateTime expiresAt) { this.expiresAt = expiresAt; }
+    public String getExternalId() {
+        return externalId;
+    }
 
-    public String getIpAddress() { return ipAddress; }
-    public void setIpAddress(String ipAddress) { this.ipAddress = ipAddress; }
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
 
-    public String getUserAgent() { return userAgent; }
-    public void setUserAgent(String userAgent) { this.userAgent = userAgent; }
+    public String getExternalUrl() {
+        return externalUrl;
+    }
+
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
+    }
+
+    public String getProviderResponse() {
+        return providerResponse;
+    }
+
+    public void setProviderResponse(String providerResponse) {
+        this.providerResponse = providerResponse;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getRefundReason() {
+        return refundReason;
+    }
+
+    public void setRefundReason(String refundReason) {
+        this.refundReason = refundReason;
+    }
+
+    public LocalDateTime getRefundedAt() {
+        return refundedAt;
+    }
+
+    public void setRefundedAt(LocalDateTime refundedAt) {
+        this.refundedAt = refundedAt;
+    }
+
+    public BigDecimal getRefundedAmount() {
+        return refundedAmount;
+    }
+
+    public void setRefundedAmount(BigDecimal refundedAmount) {
+        this.refundedAmount = refundedAmount;
+    }
+
+    public LocalDateTime getPaidAt() {
+        return paidAt;
+    }
+
+    public void setPaidAt(LocalDateTime paidAt) {
+        this.paidAt = paidAt;
+    }
+
+    public LocalDateTime getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(LocalDateTime expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public String getUserAgent() {
+        return userAgent;
+    }
+
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
+    }
 }

@@ -1,15 +1,14 @@
 package com.yoteh.api.entity;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "carts", indexes = {
-        @Index(name = "idx_carts_user_id", columnList = "user_id", unique = true)
-})
+@Table(
+        name = "carts",
+        indexes = {@Index(name = "idx_carts_user_id", columnList = "user_id", unique = true)})
 public class Cart extends AbstractAuditEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -35,24 +34,42 @@ public class Cart extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public User getUser() {
+        return user;
+    }
 
-    public List<CartItem> getItems() { return items; }
-    public void setItems(List<CartItem> items) { this.items = items; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public String getPromotionCode() { return promotionCode; }
-    public void setPromotionCode(String promotionCode) { this.promotionCode = promotionCode; }
+    public List<CartItem> getItems() {
+        return items;
+    }
 
-    public BigDecimal getDiscountAmount() { return discountAmount; }
-    public void setDiscountAmount(BigDecimal discountAmount) { this.discountAmount = discountAmount; }
+    public void setItems(List<CartItem> items) {
+        this.items = items;
+    }
+
+    public String getPromotionCode() {
+        return promotionCode;
+    }
+
+    public void setPromotionCode(String promotionCode) {
+        this.promotionCode = promotionCode;
+    }
+
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(BigDecimal discountAmount) {
+        this.discountAmount = discountAmount;
+    }
 
     // ── Méthodes utilitaires ──
 
     public BigDecimal getSubtotal() {
-        return items.stream()
-                .map(CartItem::getLineTotal)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return items.stream().map(CartItem::getLineTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal getTotal() {

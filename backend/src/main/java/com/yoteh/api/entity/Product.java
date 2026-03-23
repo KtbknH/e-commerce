@@ -1,20 +1,21 @@
 package com.yoteh.api.entity;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "products", indexes = {
-        @Index(name = "idx_products_slug", columnList = "slug", unique = true),
-        @Index(name = "idx_products_sku", columnList = "sku", unique = true),
-        @Index(name = "idx_products_category_id", columnList = "category_id"),
-        @Index(name = "idx_products_is_active", columnList = "is_active"),
-        @Index(name = "idx_products_is_featured", columnList = "is_featured"),
-        @Index(name = "idx_products_price", columnList = "price")
-})
+@Table(
+        name = "products",
+        indexes = {
+            @Index(name = "idx_products_slug", columnList = "slug", unique = true),
+            @Index(name = "idx_products_sku", columnList = "sku", unique = true),
+            @Index(name = "idx_products_category_id", columnList = "category_id"),
+            @Index(name = "idx_products_is_active", columnList = "is_active"),
+            @Index(name = "idx_products_is_featured", columnList = "is_featured"),
+            @Index(name = "idx_products_price", columnList = "price")
+        })
 public class Product extends AbstractAuditEntity {
 
     @Column(name = "name", nullable = false, length = 255)
@@ -115,89 +116,229 @@ public class Product extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public String getSlug() { return slug; }
-    public void setSlug(String slug) { this.slug = slug; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getSku() { return sku; }
-    public void setSku(String sku) { this.sku = sku; }
+    public String getSlug() {
+        return slug;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
 
-    public String getShortDescription() { return shortDescription; }
-    public void setShortDescription(String shortDescription) { this.shortDescription = shortDescription; }
+    public String getSku() {
+        return sku;
+    }
 
-    public BigDecimal getPrice() { return price; }
-    public void setPrice(BigDecimal price) { this.price = price; }
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
 
-    public BigDecimal getCompareAtPrice() { return compareAtPrice; }
-    public void setCompareAtPrice(BigDecimal compareAtPrice) { this.compareAtPrice = compareAtPrice; }
+    public String getDescription() {
+        return description;
+    }
 
-    public BigDecimal getCostPrice() { return costPrice; }
-    public void setCostPrice(BigDecimal costPrice) { this.costPrice = costPrice; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public String getCurrency() { return currency; }
-    public void setCurrency(String currency) { this.currency = currency; }
+    public String getShortDescription() {
+        return shortDescription;
+    }
 
-    public Integer getStock() { return stock; }
-    public void setStock(Integer stock) { this.stock = stock; }
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
 
-    public Integer getLowStockThreshold() { return lowStockThreshold; }
-    public void setLowStockThreshold(Integer lowStockThreshold) { this.lowStockThreshold = lowStockThreshold; }
+    public BigDecimal getPrice() {
+        return price;
+    }
 
-    public BigDecimal getWeight() { return weight; }
-    public void setWeight(BigDecimal weight) { this.weight = weight; }
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
-    public String getWeightUnit() { return weightUnit; }
-    public void setWeightUnit(String weightUnit) { this.weightUnit = weightUnit; }
+    public BigDecimal getCompareAtPrice() {
+        return compareAtPrice;
+    }
 
-    public Category getCategory() { return category; }
-    public void setCategory(Category category) { this.category = category; }
+    public void setCompareAtPrice(BigDecimal compareAtPrice) {
+        this.compareAtPrice = compareAtPrice;
+    }
 
-    public String getBrand() { return brand; }
-    public void setBrand(String brand) { this.brand = brand; }
+    public BigDecimal getCostPrice() {
+        return costPrice;
+    }
 
-    public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public void setCostPrice(BigDecimal costPrice) {
+        this.costPrice = costPrice;
+    }
 
-    public Boolean getIsFeatured() { return isFeatured; }
-    public void setIsFeatured(Boolean isFeatured) { this.isFeatured = isFeatured; }
+    public String getCurrency() {
+        return currency;
+    }
 
-    public Boolean getIsNew() { return isNew; }
-    public void setIsNew(Boolean isNew) { this.isNew = isNew; }
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 
-    public BigDecimal getRatingAvg() { return ratingAvg; }
-    public void setRatingAvg(BigDecimal ratingAvg) { this.ratingAvg = ratingAvg; }
+    public Integer getStock() {
+        return stock;
+    }
 
-    public Integer getRatingCount() { return ratingCount; }
-    public void setRatingCount(Integer ratingCount) { this.ratingCount = ratingCount; }
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
 
-    public Integer getSalesCount() { return salesCount; }
-    public void setSalesCount(Integer salesCount) { this.salesCount = salesCount; }
+    public Integer getLowStockThreshold() {
+        return lowStockThreshold;
+    }
 
-    public Integer getViewsCount() { return viewsCount; }
-    public void setViewsCount(Integer viewsCount) { this.viewsCount = viewsCount; }
+    public void setLowStockThreshold(Integer lowStockThreshold) {
+        this.lowStockThreshold = lowStockThreshold;
+    }
 
-    public String getMetaTitle() { return metaTitle; }
-    public void setMetaTitle(String metaTitle) { this.metaTitle = metaTitle; }
+    public BigDecimal getWeight() {
+        return weight;
+    }
 
-    public String getMetaDescription() { return metaDescription; }
-    public void setMetaDescription(String metaDescription) { this.metaDescription = metaDescription; }
+    public void setWeight(BigDecimal weight) {
+        this.weight = weight;
+    }
 
-    public String getTags() { return tags; }
-    public void setTags(String tags) { this.tags = tags; }
+    public String getWeightUnit() {
+        return weightUnit;
+    }
 
-    public List<ProductImage> getImages() { return images; }
-    public void setImages(List<ProductImage> images) { this.images = images; }
+    public void setWeightUnit(String weightUnit) {
+        this.weightUnit = weightUnit;
+    }
 
-    public List<ProductVariant> getVariants() { return variants; }
-    public void setVariants(List<ProductVariant> variants) { this.variants = variants; }
+    public Category getCategory() {
+        return category;
+    }
 
-    public List<Review> getReviews() { return reviews; }
-    public void setReviews(List<Review> reviews) { this.reviews = reviews; }
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Boolean getIsFeatured() {
+        return isFeatured;
+    }
+
+    public void setIsFeatured(Boolean isFeatured) {
+        this.isFeatured = isFeatured;
+    }
+
+    public Boolean getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(Boolean isNew) {
+        this.isNew = isNew;
+    }
+
+    public BigDecimal getRatingAvg() {
+        return ratingAvg;
+    }
+
+    public void setRatingAvg(BigDecimal ratingAvg) {
+        this.ratingAvg = ratingAvg;
+    }
+
+    public Integer getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(Integer ratingCount) {
+        this.ratingCount = ratingCount;
+    }
+
+    public Integer getSalesCount() {
+        return salesCount;
+    }
+
+    public void setSalesCount(Integer salesCount) {
+        this.salesCount = salesCount;
+    }
+
+    public Integer getViewsCount() {
+        return viewsCount;
+    }
+
+    public void setViewsCount(Integer viewsCount) {
+        this.viewsCount = viewsCount;
+    }
+
+    public String getMetaTitle() {
+        return metaTitle;
+    }
+
+    public void setMetaTitle(String metaTitle) {
+        this.metaTitle = metaTitle;
+    }
+
+    public String getMetaDescription() {
+        return metaDescription;
+    }
+
+    public void setMetaDescription(String metaDescription) {
+        this.metaDescription = metaDescription;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public List<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
+    }
+
+    public List<ProductVariant> getVariants() {
+        return variants;
+    }
+
+    public void setVariants(List<ProductVariant> variants) {
+        this.variants = variants;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 
     // ── Méthodes utilitaires ──
 
@@ -211,7 +352,8 @@ public class Product extends AbstractAuditEntity {
 
     public BigDecimal getDiscountPercentage() {
         if (!isOnSale()) return BigDecimal.ZERO;
-        return compareAtPrice.subtract(price)
+        return compareAtPrice
+                .subtract(price)
                 .divide(compareAtPrice, 2, java.math.RoundingMode.HALF_UP)
                 .multiply(BigDecimal.valueOf(100));
     }

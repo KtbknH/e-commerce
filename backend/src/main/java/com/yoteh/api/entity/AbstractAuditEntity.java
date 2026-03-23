@@ -1,15 +1,13 @@
 package com.yoteh.api.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 /**
- * Entité de base avec champs d'audit communs.
- * Toutes les entités Yoteh héritent de cette classe.
+ * Entité de base avec champs d'audit communs. Toutes les entités Yoteh héritent de cette classe.
  */
 @MappedSuperclass
 public abstract class AbstractAuditEntity {
@@ -64,9 +62,7 @@ public abstract class AbstractAuditEntity {
         this.deletedAt = deletedAt;
     }
 
-    /**
-     * Soft delete : marque comme supprimé sans effacer de la BDD.
-     */
+    /** Soft delete : marque comme supprimé sans effacer de la BDD. */
     public void softDelete() {
         this.deletedAt = LocalDateTime.now();
     }

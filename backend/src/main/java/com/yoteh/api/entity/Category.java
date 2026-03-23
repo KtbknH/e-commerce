@@ -1,15 +1,16 @@
 package com.yoteh.api.entity;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "categories", indexes = {
-        @Index(name = "idx_categories_slug", columnList = "slug", unique = true),
-        @Index(name = "idx_categories_parent_id", columnList = "parent_id")
-})
+@Table(
+        name = "categories",
+        indexes = {
+            @Index(name = "idx_categories_slug", columnList = "slug", unique = true),
+            @Index(name = "idx_categories_parent_id", columnList = "parent_id")
+        })
 public class Category extends AbstractAuditEntity {
 
     @Column(name = "name", nullable = false, length = 100)
@@ -58,36 +59,91 @@ public class Category extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public String getSlug() { return slug; }
-    public void setSlug(String slug) { this.slug = slug; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getSlug() {
+        return slug;
+    }
 
-    public String getImage() { return image; }
-    public void setImage(String image) { this.image = image; }
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
 
-    public String getIcon() { return icon; }
-    public void setIcon(String icon) { this.icon = icon; }
+    public String getDescription() {
+        return description;
+    }
 
-    public Category getParent() { return parent; }
-    public void setParent(Category parent) { this.parent = parent; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public List<Category> getChildren() { return children; }
-    public void setChildren(List<Category> children) { this.children = children; }
+    public String getImage() {
+        return image;
+    }
 
-    public Integer getSortOrder() { return sortOrder; }
-    public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
+    public void setImage(String image) {
+        this.image = image;
+    }
 
-    public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public String getIcon() {
+        return icon;
+    }
 
-    public Boolean getIsFeatured() { return isFeatured; }
-    public void setIsFeatured(Boolean isFeatured) { this.isFeatured = isFeatured; }
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-    public List<Product> getProducts() { return products; }
-    public void setProducts(List<Product> products) { this.products = products; }
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
+    }
+
+    public List<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Category> children) {
+        this.children = children;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Boolean getIsFeatured() {
+        return isFeatured;
+    }
+
+    public void setIsFeatured(Boolean isFeatured) {
+        this.isFeatured = isFeatured;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }

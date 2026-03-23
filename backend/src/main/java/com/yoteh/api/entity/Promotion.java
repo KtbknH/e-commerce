@@ -2,17 +2,18 @@ package com.yoteh.api.entity;
 
 import com.yoteh.api.entity.enums.PromotionType;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "promotions", indexes = {
-        @Index(name = "idx_promotions_code", columnList = "code", unique = true),
-        @Index(name = "idx_promotions_is_active", columnList = "is_active"),
-        @Index(name = "idx_promotions_starts_at", columnList = "starts_at"),
-        @Index(name = "idx_promotions_ends_at", columnList = "ends_at")
-})
+@Table(
+        name = "promotions",
+        indexes = {
+            @Index(name = "idx_promotions_code", columnList = "code", unique = true),
+            @Index(name = "idx_promotions_is_active", columnList = "is_active"),
+            @Index(name = "idx_promotions_starts_at", columnList = "starts_at"),
+            @Index(name = "idx_promotions_ends_at", columnList = "ends_at")
+        })
 public class Promotion extends AbstractAuditEntity {
 
     @Column(name = "code", nullable = false, unique = true, length = 50)
@@ -72,53 +73,133 @@ public class Promotion extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public String getCode() { return code; }
-    public void setCode(String code) { this.code = code; }
+    public String getCode() {
+        return code;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getName() {
+        return name;
+    }
 
-    public PromotionType getType() { return type; }
-    public void setType(PromotionType type) { this.type = type; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public BigDecimal getValue() { return value; }
-    public void setValue(BigDecimal value) { this.value = value; }
+    public String getDescription() {
+        return description;
+    }
 
-    public BigDecimal getMinOrderAmount() { return minOrderAmount; }
-    public void setMinOrderAmount(BigDecimal minOrderAmount) { this.minOrderAmount = minOrderAmount; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public BigDecimal getMaxDiscountAmount() { return maxDiscountAmount; }
-    public void setMaxDiscountAmount(BigDecimal maxDiscountAmount) { this.maxDiscountAmount = maxDiscountAmount; }
+    public PromotionType getType() {
+        return type;
+    }
 
-    public Integer getMaxUses() { return maxUses; }
-    public void setMaxUses(Integer maxUses) { this.maxUses = maxUses; }
+    public void setType(PromotionType type) {
+        this.type = type;
+    }
 
-    public Integer getMaxUsesPerUser() { return maxUsesPerUser; }
-    public void setMaxUsesPerUser(Integer maxUsesPerUser) { this.maxUsesPerUser = maxUsesPerUser; }
+    public BigDecimal getValue() {
+        return value;
+    }
 
-    public Integer getUsedCount() { return usedCount; }
-    public void setUsedCount(Integer usedCount) { this.usedCount = usedCount; }
+    public void setValue(BigDecimal value) {
+        this.value = value;
+    }
 
-    public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public BigDecimal getMinOrderAmount() {
+        return minOrderAmount;
+    }
 
-    public Boolean getIsFlashSale() { return isFlashSale; }
-    public void setIsFlashSale(Boolean isFlashSale) { this.isFlashSale = isFlashSale; }
+    public void setMinOrderAmount(BigDecimal minOrderAmount) {
+        this.minOrderAmount = minOrderAmount;
+    }
 
-    public LocalDateTime getStartsAt() { return startsAt; }
-    public void setStartsAt(LocalDateTime startsAt) { this.startsAt = startsAt; }
+    public BigDecimal getMaxDiscountAmount() {
+        return maxDiscountAmount;
+    }
 
-    public LocalDateTime getEndsAt() { return endsAt; }
-    public void setEndsAt(LocalDateTime endsAt) { this.endsAt = endsAt; }
+    public void setMaxDiscountAmount(BigDecimal maxDiscountAmount) {
+        this.maxDiscountAmount = maxDiscountAmount;
+    }
 
-    public Category getApplicableCategory() { return applicableCategory; }
-    public void setApplicableCategory(Category applicableCategory) { this.applicableCategory = applicableCategory; }
+    public Integer getMaxUses() {
+        return maxUses;
+    }
 
-    public Product getApplicableProduct() { return applicableProduct; }
-    public void setApplicableProduct(Product applicableProduct) { this.applicableProduct = applicableProduct; }
+    public void setMaxUses(Integer maxUses) {
+        this.maxUses = maxUses;
+    }
+
+    public Integer getMaxUsesPerUser() {
+        return maxUsesPerUser;
+    }
+
+    public void setMaxUsesPerUser(Integer maxUsesPerUser) {
+        this.maxUsesPerUser = maxUsesPerUser;
+    }
+
+    public Integer getUsedCount() {
+        return usedCount;
+    }
+
+    public void setUsedCount(Integer usedCount) {
+        this.usedCount = usedCount;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public Boolean getIsFlashSale() {
+        return isFlashSale;
+    }
+
+    public void setIsFlashSale(Boolean isFlashSale) {
+        this.isFlashSale = isFlashSale;
+    }
+
+    public LocalDateTime getStartsAt() {
+        return startsAt;
+    }
+
+    public void setStartsAt(LocalDateTime startsAt) {
+        this.startsAt = startsAt;
+    }
+
+    public LocalDateTime getEndsAt() {
+        return endsAt;
+    }
+
+    public void setEndsAt(LocalDateTime endsAt) {
+        this.endsAt = endsAt;
+    }
+
+    public Category getApplicableCategory() {
+        return applicableCategory;
+    }
+
+    public void setApplicableCategory(Category applicableCategory) {
+        this.applicableCategory = applicableCategory;
+    }
+
+    public Product getApplicableProduct() {
+        return applicableProduct;
+    }
+
+    public void setApplicableProduct(Product applicableProduct) {
+        this.applicableProduct = applicableProduct;
+    }
 
     // ── Méthodes utilitaires ──
 

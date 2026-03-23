@@ -3,9 +3,9 @@ package com.yoteh.api.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "addresses", indexes = {
-        @Index(name = "idx_addresses_user_id", columnList = "user_id")
-})
+@Table(
+        name = "addresses",
+        indexes = {@Index(name = "idx_addresses_user_id", columnList = "user_id")})
 public class Address extends AbstractAuditEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,42 +54,107 @@ public class Address extends AbstractAuditEntity {
 
     // ── Getters & Setters ──
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public User getUser() {
+        return user;
+    }
 
-    public String getLabel() { return label; }
-    public void setLabel(String label) { this.label = label; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public String getLabel() {
+        return label;
+    }
 
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public String getStreet() { return street; }
-    public void setStreet(String street) { this.street = street; }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String getStreet2() { return street2; }
-    public void setStreet2(String street2) { this.street2 = street2; }
+    public String getLastName() {
+        return lastName;
+    }
 
-    public String getCity() { return city; }
-    public void setCity(String city) { this.city = city; }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-    public String getState() { return state; }
-    public void setState(String state) { this.state = state; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public String getPostalCode() { return postalCode; }
-    public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-    public String getCountry() { return country; }
-    public void setCountry(String country) { this.country = country; }
+    public String getStreet() {
+        return street;
+    }
 
-    public Boolean getIsDefault() { return isDefault; }
-    public void setIsDefault(Boolean isDefault) { this.isDefault = isDefault; }
+    public void setStreet(String street) {
+        this.street = street;
+    }
 
-    public String getInstructions() { return instructions; }
-    public void setInstructions(String instructions) { this.instructions = instructions; }
+    public String getStreet2() {
+        return street2;
+    }
+
+    public void setStreet2(String street2) {
+        this.street2 = street2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Boolean getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(Boolean isDefault) {
+        this.isDefault = isDefault;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
 }

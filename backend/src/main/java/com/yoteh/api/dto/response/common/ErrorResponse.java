@@ -2,7 +2,7 @@ package com.yoteh.api.dto.response.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 public class ErrorResponse {
 
     private int status;
+    private String error;
     private String message;
     private String path;
-    private Map<String, String> errors;
-
-    @Builder.Default private LocalDateTime timestamp = LocalDateTime.now();
+    private LocalDateTime timestamp;
+    private List<String> errors;
 }
