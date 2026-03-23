@@ -31,9 +31,12 @@ jobs:
           cache: 'maven'
           cache-dependency-path: backend/pom.xml
       - name: Check formatting
-        run: mvn spotless:check -B
+        run: mvn spotless:check -
+      
+      - name: Google styls
+        run: mvn spotless:apply -B
       - name: Compile
-        run: mvn compile -B -DskipTests
+        run: mvn clear compile -B -DskipTests
 
   backend-unit-tests:
     name: "Backend: Unit Tests"
