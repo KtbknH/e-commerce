@@ -31,7 +31,7 @@ jobs:
           cache: 'maven'
           cache-dependency-path: backend/pom.xml
       - name: Check formatting
-        run: mvn spotless:check -
+        run: mvn spotless:check -B
       
       - name: Google styls
         run: mvn spotless:apply -B
