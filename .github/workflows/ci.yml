@@ -36,7 +36,7 @@ jobs:
       - name: Google styls
         run: mvn spotless:apply -B
       - name: Compile
-        run: mvn clear compile -B -DskipTests
+        run: mvn clean compile -B -DskipTests
 
   backend-unit-tests:
     name: "Backend: Unit Tests"
