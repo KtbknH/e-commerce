@@ -47,4 +47,20 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.deletedAt IS NULL AND u.role = :role")
     long countByRole(@Param("role") UserRole role);
+
+    // ─── Admin : recherche avec filtres ───────────────────────
+    @Query(
+            "SELECT u FROM User u WHERE "
+                    + "(:search IS NULL OR :search = '' OR "
+                    + " LOWER(u.firstName) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+                    + " LOWER(u.lastName) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+                    + " LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+                    + " u.phone LIKE CONCAT('%', :search, '%')) "
+                    + "AND (:role IS NULL OR u.role = :role) "
+                    + "AND (:isActive IS NULL OR u.isActive = :isActive)")
+    Page<User> findAllWithFilters(
+            @Param("search") String search,
+            @Param("role") UserRole role,
+            @Param("isActive") Boolean isActive,
+            Pageable pageable);
 }
