@@ -26,6 +26,8 @@
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <springdoc.version>2.3.0</springdoc.version>
     <testcontainers.version>1.19.7</testcontainers.version>
+    <lombok.version>1.18.30</lombok.version>
+    <mapstruct.version>1.5.5.Final</mapstruct.version>
   </properties>
 
   <dependencies>
@@ -208,6 +210,14 @@
       <version>4.0.0</version>
     </dependency>
 
+    <!-- Lombok pour MapStruct -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok-mapstruct-binding</artifactId>
+      <version>0.2.0</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>
@@ -231,9 +241,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
         <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
+          <source>17</source>
+          <target>17</target>
           <annotationProcessorPaths>
             <path>
               <groupId>org.projectlombok</groupId>
@@ -251,9 +262,6 @@
               <version>${mapstruct.version}</version>
             </path>
           </annotationProcessorPaths>
-          <compilerArgs>
-            <arg>-Amapstruct.defaultComponentModel=spring</arg>
-          </compilerArgs>
         </configuration>
       </plugin>
 
