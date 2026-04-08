@@ -2,7 +2,6 @@ package com.yoteh.api.repository;
 
 import com.yoteh.api.entity.Order;
 import com.yoteh.api.entity.enums.OrderStatus;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,47 +15,59 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, UUID> {
 
+    // ─── Par numéro de commande ─────────────────────────────
+    @Query(
+            "SELECT o FROM Order o LEFT JOIN FETCH o.items i "
+                    + "LEFT JOIN FETCH i.product LEFT JOIN FETCH i.variant "
+                    + "LEFT JOIN FETCH o.user LEFT JOIN FETCH o.shippingAddress "
+                    + "LEFT JOIN FETCH o.billingAddress "
+                    + "WHERE o.orderNumber = :orderNumber")
+    Optional<Order> findByOrderNumberWithDetails(@Param("orderNumber") String orderNumber);
+
     Optional<Order> findByOrderNumber(String orderNumber);
 
+    // ─── Par ID avec détails ────────────────────────────────
+    @Query(
+            "SELECT o FROM Order o LEFT JOIN FETCH o.items i "
+                    + "LEFT JOIN FETCH i.product LEFT JOIN FETCH i.variant "
+                    + "LEFT JOIN FETCH o.user LEFT JOIN FETCH o.shippingAddress "
+                    + "LEFT JOIN FETCH o.billingAddress "
+                    + "WHERE o.id = :id")
+    Optional<Order> findByIdWithDetails(@Param("id") UUID id);
+
+    // ─── Commandes utilisateur ──────────────────────────────
     Page<Order> findByUserIdOrderByCreatedAtDesc(UUID userId, Pageable pageable);
 
-    Page<Order> findByUserIdAndStatusOrderByCreatedAtDesc(
-            UUID userId, OrderStatus status, Pageable pageable);
-
-    Page<Order> findByStatusOrderByCreatedAtDesc(OrderStatus status, Pageable pageable);
-
     @Query(
-            "SELECT o FROM Order o WHERE o.deletedAt IS NULL "
+            "SELECT o FROM Order o WHERE o.user.id = :userId "
                     + "AND (:status IS NULL OR o.status = :status) "
-                    + "AND (:userId IS NULL OR o.user.id = :userId) "
-                    + "AND (:from IS NULL OR o.createdAt >= :from) "
-                    + "AND (:to IS NULL OR o.createdAt <= :to) "
                     + "ORDER BY o.createdAt DESC")
-    Page<Order> findAllFiltered(
+    Page<Order> findByUserIdAndStatus(
+            @Param("userId") UUID userId, @Param("status") OrderStatus status, Pageable pageable);
+
+    // ─── Admin : toutes les commandes avec filtres ──────────
+    @Query(
+            "SELECT o FROM Order o JOIN o.user u WHERE "
+                    + "(:status IS NULL OR o.status = :status) "
+                    + "AND (:search IS NULL OR LOWER(o.orderNumber) LIKE LOWER(CONCAT('%', :search, '%')) "
+                    + "    OR LOWER(u.fullName) LIKE LOWER(CONCAT('%', :search, '%')) "
+                    + "    OR LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%'))) "
+                    + "AND (:from IS NULL OR o.createdAt >= :from) "
+                    + "AND (:to IS NULL OR o.createdAt <= :to)")
+    Page<Order> findAllWithFilters(
             @Param("status") OrderStatus status,
-            @Param("userId") UUID userId,
+            @Param("search") String search,
             @Param("from") LocalDateTime from,
             @Param("to") LocalDateTime to,
             Pageable pageable);
 
-    @Query("SELECT COUNT(o) FROM Order o WHERE o.deletedAt IS NULL AND o.status = :status")
-    long countByStatus(@Param("status") OrderStatus status);
-
-    @Query(
-            "SELECT COALESCE(SUM(o.total), 0) FROM Order o WHERE o.deletedAt IS NULL AND o.status = :status")
-    BigDecimal sumTotalByStatus(@Param("status") OrderStatus status);
-
-    @Query(
-            "SELECT COALESCE(SUM(o.total), 0) FROM Order o WHERE o.deletedAt IS NULL "
-                    + "AND o.status IN ('PAID', 'PREPARING', 'SHIPPED', 'DELIVERED') "
-                    + "AND o.createdAt >= :from AND o.createdAt <= :to")
-    BigDecimal sumRevenueForPeriod(
-            @Param("from") LocalDateTime from, @Param("to") LocalDateTime to);
-
-    @Query(
-            "SELECT COUNT(o) FROM Order o WHERE o.deletedAt IS NULL "
-                    + "AND o.createdAt >= :from AND o.createdAt <= :to")
-    long countForPeriod(@Param("from") LocalDateTime from, @Param("to") LocalDateTime to);
-
+    // ─── Compteurs ──────────────────────────────────────────
     long countByUserId(UUID userId);
+
+    long countByStatus(OrderStatus status);
+
+    @Query("SELECT COUNT(o) FROM Order o WHERE o.user.id = :userId AND o.status = :status")
+    long countByUserIdAndStatus(@Param("userId") UUID userId, @Param("status") OrderStatus status);
+
+    boolean existsByOrderNumber(String orderNumber);
 }

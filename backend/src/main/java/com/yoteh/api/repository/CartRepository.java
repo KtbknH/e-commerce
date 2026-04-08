@@ -11,11 +11,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, UUID> {
 
-    Optional<Cart> findByUserId(UUID userId);
-
     @Query(
-            "SELECT c FROM Cart c LEFT JOIN FETCH c.items ci LEFT JOIN FETCH ci.product LEFT JOIN FETCH ci.variant WHERE c.user.id = :userId")
+            "SELECT c FROM Cart c LEFT JOIN FETCH c.items i "
+                    + "LEFT JOIN FETCH i.product p LEFT JOIN FETCH p.images "
+                    + "LEFT JOIN FETCH i.variant "
+                    + "WHERE c.user.id = :userId")
     Optional<Cart> findByUserIdWithItems(@Param("userId") UUID userId);
+
+    Optional<Cart> findByUserId(UUID userId);
 
     boolean existsByUserId(UUID userId);
 }
