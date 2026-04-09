@@ -2,9 +2,9 @@ package com.yoteh.api.config;
 
 import com.yoteh.api.security.JwtAuthEntryPoint;
 import com.yoteh.api.security.JwtAuthFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -19,23 +19,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter, JwtAuthEntryPoint jwtAuthEntryPoint) {
-        this.jwtAuthFilter = jwtAuthFilter;
-        this.jwtAuthEntryPoint = jwtAuthEntryPoint;
-    }
-
     private static final String[] PUBLIC_URLS = {
-        "/api/v1/auth/register",
-        "/api/v1/auth/login",
-        "/api/v1/auth/refresh-token",
-        "/api/v1/auth/forgot-password",
-        "/api/v1/auth/reset-password",
-        "/api/v1/auth/verify-email",
+        "/api/v1/auth/**",
+        "/api/v1/products/**",
+        "/api/v1/categories/**",
+        "/api/v1/promotions/flash-sales",
+        "/api/v1/promotions/apply",
+        "/api/v1/payments/callback/**",
+        "/api/v1/payments/webhook/**",
         "/swagger-ui/**",
         "/swagger-ui.html",
         "/v3/api-docs/**",
@@ -43,23 +40,15 @@ public class SecurityConfig {
         "/health"
     };
 
-    private static final String[] PUBLIC_GET_URLS = {
-        "/api/v1/products/**", "/api/v1/categories/**"
-    };
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-                .cors(cors -> {})
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthEntryPoint))
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(
-                        exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint))
                 .authorizeHttpRequests(
                         auth ->
                                 auth.requestMatchers(PUBLIC_URLS)
-                                        .permitAll()
-                                        .requestMatchers(HttpMethod.GET, PUBLIC_GET_URLS)
                                         .permitAll()
                                         .anyRequest()
                                         .authenticated())
@@ -69,9 +58,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
-            throws Exception {
-        return config.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
