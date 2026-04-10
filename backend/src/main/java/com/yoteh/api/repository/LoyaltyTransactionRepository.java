@@ -15,10 +15,29 @@ public interface LoyaltyTransactionRepository extends JpaRepository<LoyaltyTrans
     Page<LoyaltyTransaction> findByUserIdOrderByCreatedAtDesc(UUID userId, Pageable pageable);
 
     @Query(
-            "SELECT COALESCE(SUM(lt.points), 0) FROM LoyaltyTransaction lt WHERE lt.user.id = :userId AND lt.type = 'EARN'")
+            "SELECT COALESCE(SUM(lt.points), 0) FROM LoyaltyTransaction lt "
+                    + "WHERE lt.user.id = :userId AND lt.type = 'EARN'")
     int sumEarnedPointsByUserId(@Param("userId") UUID userId);
 
     @Query(
-            "SELECT COALESCE(SUM(lt.points), 0) FROM LoyaltyTransaction lt WHERE lt.user.id = :userId AND lt.type = 'REDEEM'")
+            "SELECT COALESCE(SUM(lt.points), 0) FROM LoyaltyTransaction lt "
+                    + "WHERE lt.user.id = :userId AND lt.type = 'REDEEM'")
     int sumRedeemedPointsByUserId(@Param("userId") UUID userId);
+
+    @Query(
+            "SELECT lt FROM LoyaltyTransaction lt WHERE lt.type = :type "
+                    + "ORDER BY lt.createdAt DESC")
+    Page<LoyaltyTransaction> findByType(@Param("type") String type, Pageable pageable);
+
+    @Query("SELECT lt FROM LoyaltyTransaction lt ORDER BY lt.createdAt DESC")
+    Page<LoyaltyTransaction> findAllOrderByCreatedAtDesc(Pageable pageable);
+
+    @Query(
+            "SELECT lt FROM LoyaltyTransaction lt "
+                    + "WHERE lt.user.id = :userId AND lt.type = :type "
+                    + "ORDER BY lt.createdAt DESC")
+    Page<LoyaltyTransaction> findByUserIdAndType(
+            @Param("userId") UUID userId, @Param("type") String type, Pageable pageable);
+
+    boolean existsByOrderIdAndType(UUID orderId, String type);
 }
