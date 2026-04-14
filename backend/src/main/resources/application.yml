@@ -94,6 +94,13 @@ app:
     allowed-origins: ${CORS_ORIGINS:http://localhost:3000,http://localhost:8081,http://localhost:19006}
   base-url: ${BASE_URL:http://localhost:8080}
   name: ${APP_NAME:Yoteh}
+  security:
+    rate-limit:
+    max-requests: ${RATE_LIMIT_MAX:100}
+    window-seconds: ${RATE_LIMIT_WINDOW:100}
+    auth-max-requests: ${AUTH_RATE_LIMIT_MAX:30}
+    aut-h-window-seconds: ${AUTH_RATE_LIMIT_WINDOW:600}
+
 yoteh:
   default-currency: XOF
   supported-currencies: XOF,CDF,USD,EUR
