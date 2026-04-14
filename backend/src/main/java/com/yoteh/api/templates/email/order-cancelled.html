@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${appName} + ' — Commande annulée'">Yoteh — Commande annulée</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, Helvetica, sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+        .header { background-color: #FF6B00; padding: 24px; text-align: center; }
+        .header h1 { color: #ffffff; margin: 0; font-size: 28px; }
+        .content { padding: 32px 24px; color: #333333; line-height: 1.6; }
+        .content h2 { color: #1A1A1A; margin-top: 0; }
+        .order-badge { background-color: #DC3545; color: #fff; display: inline-block;
+                       padding: 6px 14px; border-radius: 4px; font-weight: bold; font-size: 14px; }
+        .cancel-box { background-color: #F8D7DA; border: 1px solid #DC3545; border-radius: 6px;
+                      padding: 16px; margin: 16px 0; }
+        table.items { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        table.items th { background-color: #f8f8f8; text-align: left; padding: 10px 8px; border-bottom: 2px solid #ddd; font-size: 13px; }
+        table.items td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 13px; }
+        .totals { margin: 16px 0; }
+        .totals table { width: 100%; }
+        .totals td { padding: 6px 8px; font-size: 14px; }
+        .totals .total-row td { font-weight: bold; font-size: 16px; border-top: 2px solid #1A1A1A; padding-top: 10px; }
+        .footer { background-color: #1A1A1A; padding: 20px 24px; text-align: center; color: #999999; font-size: 12px; }
+        .footer a { color: #FF6B00; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 th:text="${appName}">Yoteh</h1>
+        </div>
+
+        <div class="content">
+            <h2>Commande annulée <span class="order-badge">ANNULÉE</span></h2>
+
+            <p>Bonjour <strong th:text="${firstName}">Client</strong>,</p>
+
+            <p>
+                Votre commande <strong th:text="${orderNumber}">YTH-xxx</strong> a été annulée
+                <span th:if="${cancelledAt != null}">le <span th:text="${cancelledAt}">--</span></span>.
+            </p>
+
+            <!-- Raison d'annulation -->
+            <div th:if="${cancelReason != null}" class="cancel-box">
+                <strong>Raison :</strong>
+                <p th:text="${cancelReason}" style="margin: 8px 0 0;">Raison</p>
+            </div>
+
+            <!-- Articles annulés -->
+            <table class="items">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Qté</th>
+                        <th style="text-align: right;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${items}">
+                        <td>
+                            <span th:text="${item.productName}">Produit</span>
+                            <br th:if="${item.variantInfo != null}" />
+                            <small th:if="${item.variantInfo != null}" th:text="${item.variantInfo}" style="color: #888;"></small>
+                        </td>
+                        <td th:text="${item.quantity}">1</td>
+                        <td style="text-align: right;" th:text="${item.total} + ' ' + ${currency}">0 XOF</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Total annulé -->
+            <div class="totals">
+                <table>
+                    <tr class="total-row">
+                        <td>Montant remboursé</td>
+                        <td style="text-align: right;" th:text="${total} + ' ' + ${currency}">0 XOF</td>
+                    </tr>
+                </table>
+            </div>
+
+            <p>
+                Si un paiement a été effectué, le remboursement sera traité sous 5 à 10 jours ouvrables.
+            </p>
+
+            <p>
+                Pour toute question, contactez-nous à
+                <a href="mailto:support@yoteh.com" style="color: #FF6B00;">support@yoteh.com</a>.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 <span th:text="${appName}">Yoteh</span>. Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+</html>

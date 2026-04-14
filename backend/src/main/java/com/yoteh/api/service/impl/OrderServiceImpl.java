@@ -4,6 +4,7 @@ import com.yoteh.api.dto.request.OrderRequest;
 import com.yoteh.api.dto.response.OrderListResponse;
 import com.yoteh.api.dto.response.OrderResponse;
 import com.yoteh.api.dto.response.common.PagedResponse;
+import com.yoteh.api.entity.*;
 import com.yoteh.api.entity.Address;
 import com.yoteh.api.entity.Cart;
 import com.yoteh.api.entity.CartItem;
@@ -21,6 +22,7 @@ import com.yoteh.api.repository.CartRepository;
 import com.yoteh.api.repository.OrderItemRepository;
 import com.yoteh.api.repository.OrderRepository;
 import com.yoteh.api.repository.UserRepository;
+import com.yoteh.api.service.NotificationService;
 import com.yoteh.api.service.OrderService;
 import com.yoteh.api.util.Constants;
 import java.math.BigDecimal;
@@ -49,6 +51,7 @@ public class OrderServiceImpl implements OrderService {
     private final AddressRepository addressRepository;
     private final UserRepository userRepository;
     private final OrderMapper orderMapper;
+    private final NotificationService notificationService;
 
     @Override
     @Transactional
@@ -272,6 +275,7 @@ public class OrderServiceImpl implements OrderService {
         order.setCancelReason(reason);
         order.setCancelledAt(LocalDateTime.now());
         orderRepository.save(order);
+        notificationService.sendOrderCancelledEmail(order);
 
         log.info("Commande {} annulée par l'utilisateur {}", order.getOrderNumber(), userId);
         return orderMapper.toOrderResponse(order);
@@ -345,6 +349,16 @@ public class OrderServiceImpl implements OrderService {
 
         orderRepository.save(order);
         log.info("Commande {} passée au statut {}", order.getOrderNumber(), newStatus);
+
+        switch (newStatus) {
+            case PAID -> notificationService.sendOrderConfirmationEmail(order);
+            case SHIPPED -> notificationService.sendOrderShippedEmail(order);
+            case DELIVERED -> notificationService.sendOrderDeliveredEmail(order);
+            case CANCELLED -> notificationService.sendOrderCancelledEmail(order);
+            default -> {
+                // Pas de notification pour les autres statuts
+            }
+        }
         return orderMapper.toOrderResponse(order);
     }
 
@@ -374,7 +388,9 @@ public class OrderServiceImpl implements OrderService {
                     case PREPARING ->
                             newStatus == OrderStatus.SHIPPED || newStatus == OrderStatus.CANCELLED;
                     case SHIPPED -> newStatus == OrderStatus.DELIVERED;
-                    case DELIVERED, CANCELLED, REFUNDED -> false;
+                    case DELIVERED -> newStatus == OrderStatus.REFUNDED;
+                    case CANCELLED -> newStatus == OrderStatus.REFUNDED;
+                    case REFUNDED -> false;
                 };
 
         if (!valid) {
@@ -398,18 +414,18 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private String getPrimaryImageUrl(com.yoteh.api.entity.Product product) {
+    private String getPrimaryImageUrl(Product product) {
         if (product.getImages() == null || product.getImages().isEmpty()) {
             return null;
         }
         return product.getImages().stream()
-                .filter(com.yoteh.api.entity.ProductImage::getIsPrimary)
+                .filter(ProductImage::getIsPrimary)
                 .findFirst()
-                .map(com.yoteh.api.entity.ProductImage::getUrl)
+                .map(ProductImage::getUrl)
                 .orElse(product.getImages().get(0).getUrl());
     }
 
-    private String buildVariantInfo(com.yoteh.api.entity.ProductVariant variant) {
+    private String buildVariantInfo(ProductVariant variant) {
         StringBuilder info = new StringBuilder();
         if (variant.getSize() != null) {
             info.append("Taille: ").append(variant.getSize());

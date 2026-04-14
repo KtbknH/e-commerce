@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${appName} + ' — Commande expédiée'">Yoteh — Commande expédiée</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, Helvetica, sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+        .header { background-color: #FF6B00; padding: 24px; text-align: center; }
+        .header h1 { color: #ffffff; margin: 0; font-size: 28px; }
+        .content { padding: 32px 24px; color: #333333; line-height: 1.6; }
+        .content h2 { color: #1A1A1A; margin-top: 0; }
+        .order-badge { background-color: #17A2B8; color: #fff; display: inline-block;
+                       padding: 6px 14px; border-radius: 4px; font-weight: bold; font-size: 14px; }
+        .tracking-box { background-color: #E8F4FD; border: 1px solid #17A2B8; border-radius: 6px;
+                        padding: 16px; margin: 16px 0; text-align: center; }
+        .tracking-box .tracking-number { font-size: 20px; font-weight: bold; color: #1A1A1A;
+                                          letter-spacing: 2px; margin: 8px 0; }
+        table.items { width: 100%; border-collapse: collapse; margin: 16px 0; }
+        table.items th { background-color: #f8f8f8; text-align: left; padding: 10px 8px; border-bottom: 2px solid #ddd; font-size: 13px; }
+        table.items td { padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 13px; }
+        .address-box { background-color: #f8f8f8; border-radius: 6px; padding: 16px; margin: 16px 0; }
+        .footer { background-color: #1A1A1A; padding: 20px 24px; text-align: center; color: #999999; font-size: 12px; }
+        .footer a { color: #FF6B00; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 th:text="${appName}">Yoteh</h1>
+        </div>
+
+        <div class="content">
+            <h2>Commande expédiée <span class="order-badge">EXPÉDIÉE</span></h2>
+
+            <p>Bonjour <strong th:text="${firstName}">Client</strong>,</p>
+
+            <p>
+                Bonne nouvelle ! Votre commande <strong th:text="${orderNumber}">YTH-xxx</strong>
+                a été expédiée le <span th:text="${shippedAt}">--</span>.
+            </p>
+
+            <!-- Numéro de suivi -->
+            <div th:if="${hasTracking}" class="tracking-box">
+                <div>Numéro de suivi :</div>
+                <div class="tracking-number" th:text="${trackingNumber}">TRACK-XXX</div>
+            </div>
+
+            <p th:if="${!hasTracking}" style="color: #888; font-style: italic;">
+                Aucun numéro de suivi n'est disponible pour cette expédition.
+            </p>
+
+            <!-- Articles -->
+            <table class="items">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Qté</th>
+                        <th style="text-align: right;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${items}">
+                        <td>
+                            <span th:text="${item.productName}">Produit</span>
+                            <br th:if="${item.variantInfo != null}" />
+                            <small th:if="${item.variantInfo != null}" th:text="${item.variantInfo}" style="color: #888;"></small>
+                        </td>
+                        <td th:text="${item.quantity}">1</td>
+                        <td style="text-align: right;" th:text="${item.total} + ' ' + ${currency}">0 XOF</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Adresse livraison -->
+            <div class="address-box">
+                <strong>Livraison à :</strong><br/>
+                <span th:text="${shippingFirstName} + ' ' + ${shippingLastName}">Nom</span><br/>
+                <span th:text="${shippingStreet}">Rue</span><br/>
+                <span th:text="${shippingCity} + ', ' + ${shippingCountry}">Ville</span><br/>
+                <span th:if="${shippingPhone != null}" th:text="'Tél : ' + ${shippingPhone}">Tél</span>
+            </div>
+
+            <p>Merci pour votre confiance !</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 <span th:text="${appName}">Yoteh</span>. Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+</html>

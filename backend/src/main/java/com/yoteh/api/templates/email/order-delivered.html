@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${appName} + ' — Commande livrée'">Yoteh — Commande livrée</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, Helvetica, sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+        .header { background-color: #FF6B00; padding: 24px; text-align: center; }
+        .header h1 { color: #ffffff; margin: 0; font-size: 28px; }
+        .content { padding: 32px 24px; color: #333333; line-height: 1.6; }
+        .content h2 { color: #1A1A1A; margin-top: 0; }
+        .order-badge { background-color: #28A745; color: #fff; display: inline-block;
+                       padding: 6px 14px; border-radius: 4px; font-weight: bold; font-size: 14px; }
+        .success-box { background-color: #D4EDDA; border: 1px solid #28A745; border-radius: 6px;
+                       padding: 16px; margin: 16px 0; text-align: center; }
+        .success-box .icon { font-size: 40px; margin-bottom: 8px; }
+        .footer { background-color: #1A1A1A; padding: 20px 24px; text-align: center; color: #999999; font-size: 12px; }
+        .footer a { color: #FF6B00; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 th:text="${appName}">Yoteh</h1>
+        </div>
+
+        <div class="content">
+            <h2>Commande livrée <span class="order-badge">LIVRÉE</span></h2>
+
+            <p>Bonjour <strong th:text="${firstName}">Client</strong>,</p>
+
+            <div class="success-box">
+                <div class="icon">&#10004;</div>
+                <div>
+                    Votre commande <strong th:text="${orderNumber}">YTH-xxx</strong> a été livrée
+                    <span th:if="${deliveredAt != null}">le <span th:text="${deliveredAt}">--</span></span>.
+                </div>
+            </div>
+
+            <p>
+                Nous espérons que vous êtes satisfait(e) de votre achat !
+                N'hésitez pas à laisser un avis sur les produits que vous avez reçus.
+            </p>
+
+            <p>
+                Si vous rencontrez un problème avec votre commande, contactez-nous à
+                <a href="mailto:support@yoteh.com" style="color: #FF6B00;">support@yoteh.com</a>.
+            </p>
+
+            <p>Merci pour votre fidélité !</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 <span th:text="${appName}">Yoteh</span>. Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+</html>

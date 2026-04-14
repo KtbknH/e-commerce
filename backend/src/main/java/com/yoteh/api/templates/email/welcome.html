@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${appName} + ' — Bienvenue'">Yoteh — Bienvenue</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, Helvetica, sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+        .header { background-color: #FF6B00; padding: 24px; text-align: center; }
+        .header h1 { color: #ffffff; margin: 0; font-size: 28px; }
+        .content { padding: 32px 24px; color: #333333; line-height: 1.6; }
+        .content h2 { color: #1A1A1A; margin-top: 0; }
+        .btn { display: inline-block; background-color: #FF6B00; color: #ffffff; text-decoration: none;
+               padding: 14px 32px; border-radius: 6px; font-weight: bold; font-size: 16px; margin: 16px 0; }
+        .btn:hover { background-color: #e55d00; }
+        .footer { background-color: #1A1A1A; padding: 20px 24px; text-align: center; color: #999999; font-size: 12px; }
+        .footer a { color: #FF6B00; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 th:text="${appName}">Yoteh</h1>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h2>Bienvenue, <span th:text="${firstName}">Client</span> !</h2>
+
+            <p>
+                Merci de vous être inscrit(e) sur <strong th:text="${appName}">Yoteh</strong>.
+                Nous sommes ravis de vous compter parmi nous !
+            </p>
+
+            <p>
+                Pour commencer à profiter de toutes les fonctionnalités, veuillez vérifier votre adresse email
+                en cliquant sur le bouton ci-dessous :
+            </p>
+
+            <p style="text-align: center;">
+                <a th:href="${verificationUrl}" class="btn">Vérifier mon email</a>
+            </p>
+
+            <p style="font-size: 13px; color: #888;">
+                Si le bouton ne fonctionne pas, copiez et collez ce lien dans votre navigateur :<br/>
+                <a th:href="${verificationUrl}" th:text="${verificationUrl}" style="color: #FF6B00; word-break: break-all;"></a>
+            </p>
+
+            <p>À bientôt sur <span th:text="${appName}">Yoteh</span> !</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2026 <span th:text="${appName}">Yoteh</span>. Tous droits réservés.</p>
+            <p>Cet email a été envoyé automatiquement, merci de ne pas y répondre.</p>
+        </div>
+    </div>
+</body>
+</html>

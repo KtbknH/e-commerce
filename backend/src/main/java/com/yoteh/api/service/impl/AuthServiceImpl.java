@@ -16,6 +16,7 @@ import com.yoteh.api.exception.UnauthorizedException;
 import com.yoteh.api.repository.UserRepository;
 import com.yoteh.api.security.JwtService;
 import com.yoteh.api.service.AuthService;
+import com.yoteh.api.service.NotificationService;
 import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,18 +40,21 @@ public class AuthServiceImpl implements AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
+    private final NotificationService notificationService;
 
     public AuthServiceImpl(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             JwtService jwtService,
             AuthenticationManager authenticationManager,
-            UserDetailsService userDetailsService) {
+            UserDetailsService userDetailsService,
+            NotificationService notificationService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
+        this.notificationService = notificationService;
     }
 
     // ─── Inscription ─────────────────────────────────────────
@@ -86,10 +90,8 @@ public class AuthServiceImpl implements AuthService {
         user.setVerificationExpires(LocalDateTime.now().plusHours(24));
 
         User savedUser = userRepository.save(user);
+        notificationService.sendWelcomeEmail(savedUser, verificationToken);
         log.info("Utilisateur créé avec succès: {}", savedUser.getId());
-
-        // TODO: Envoyer l'email de vérification (Chat 13 — Notifications)
-        // emailService.sendVerificationEmail(savedUser, verificationToken);
 
         // Générer les tokens
         UserDetails userDetails = userDetailsService.loadUserByUsername(savedUser.getEmail());
@@ -231,9 +233,7 @@ public class AuthServiceImpl implements AuthService {
                             user.setResetPasswordToken(resetToken);
                             user.setResetPasswordExpires(LocalDateTime.now().plusHours(1));
                             userRepository.save(user);
-
-                            // TODO: Envoyer l'email de réinitialisation (Chat 13)
-                            // emailService.sendPasswordResetEmail(user, resetToken);
+                            notificationService.sendPasswordResetEmail(user, resetToken);
                             log.info("Token de réinitialisation généré pour: {}", email);
                         });
     }
@@ -279,6 +279,7 @@ public class AuthServiceImpl implements AuthService {
         // Révoquer aussi le refresh token pour forcer la reconnexion
         user.setRefreshToken(null);
         userRepository.save(user);
+        notificationService.sendPasswordChangedEmail(user);
 
         log.info("Mot de passe réinitialisé pour: {}", email);
     }
