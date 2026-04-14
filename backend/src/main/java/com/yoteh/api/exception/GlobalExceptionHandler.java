@@ -1,6 +1,7 @@
 package com.yoteh.api.exception;
 
 import com.yoteh.api.dto.response.common.ErrorResponse;
+import com.yoteh.api.util.MessageUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +17,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private final MessageUtil messageUtil;
+
+    public GlobalExceptionHandler(MessageUtil messageUtil) {
+        this.messageUtil = messageUtil;
+    }
 
     // ─── 400 Bad Request ──────────────────────────────────────────
     @ExceptionHandler(BadRequestException.class)
@@ -62,14 +69,19 @@ public class GlobalExceptionHandler {
                         .map(FieldError::getDefaultMessage)
                         .collect(Collectors.toList());
 
-        return build(HttpStatus.UNPROCESSABLE_ENTITY, "Erreur de validation", request, errors);
+        return build(
+                HttpStatus.UNPROCESSABLE_ENTITY,
+                messageUtil.get("error.validation"),
+                request,
+                errors);
     }
 
     // ─── 500 Catch-all ────────────────────────────────────────────
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAll(Exception ex, HttpServletRequest request) {
         log.error("Erreur inattendue : {}", ex.getMessage(), ex);
-        return build(HttpStatus.INTERNAL_SERVER_ERROR, "Erreur interne du serveur", request, null);
+        return build(
+                HttpStatus.INTERNAL_SERVER_ERROR, messageUtil.get("error.generic"), request, null);
     }
 
     // ─── Helper ───────────────────────────────────────────────────
